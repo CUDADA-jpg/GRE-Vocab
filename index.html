@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#3348d4">
+  <title>词间 · Wordloom — 我的单词与联想</title>
+  <meta name="description" content="中英释义、个人联想与例句。让每个单词，都有一个记得住的故事。">
+  <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+  <script src="words.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到学习卡</a>
+  <aside class="sidebar" id="sidebar" aria-label="我的单词本">
+    <a class="brand" href="#cozen"><span class="mark" aria-hidden="true">w.</span><span>词间<span class="brand-en">WORDLOOM</span></span></a>
+    <div class="library-title"><span>我的单词本</span><span class="count">11</span><button class="close-menu icon-button" aria-label="关闭单词本">×</button></div>
+    <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" placeholder="搜索单词或中文" autocomplete="off" aria-label="搜索单词或中文"><kbd>/</kbd></label>
+    <nav id="word-list" aria-label="单词列表"></nav>
+    <p class="empty" id="empty" hidden>还没有这个单词。<br>试试其他词或中文释义。</p>
+    <div class="sidebar-foot"><span class="mini-mark">✳</span><div>从一个词，到一个故事。<small>属于你的联想，慢慢积累。</small></div></div>
+  </aside>
+  <button id="scrim" class="scrim" aria-label="关闭单词本" hidden></button>
+  <div class="workspace">
+    <header class="topbar"><div><button id="menu" class="icon-button" aria-label="打开单词本" aria-expanded="false">☰</button><span class="breadcrumb">我的单词本 <span>/</span> <b>学习卡</b></span></div><span class="prototype">体验版 <span>·</span> 11 个单词</span></header>
+    <main id="main" tabindex="-1">
+      <div class="page-heading"><div class="eyebrow">A WORD, A CONNECTION</div><div class="pager"><button id="prev" aria-label="上一个单词">←</button><span id="position">01 / 11</span><button id="next" aria-label="下一个单词">→</button></div></div>
+      <article id="card">
+        <div class="word-heading"><div><div class="word-meta"><span id="number">WORD 001</span><span class="tiny-rule"></span><span id="pos"></span></div><h1 id="word"></h1><div class="pronunciation"><span id="ipa"></span><span class="word-form" id="form"></span></div></div><span class="word-monogram" id="monogram" aria-hidden="true"></span></div>
+        <div class="definition-grid"><section><h2><span>01</span> 中文释义</h2><p id="zh"></p><p class="usage" id="usage" hidden></p></section><section><h2><span>02</span> ENGLISH MEANING</h2><p id="en" lang="en"></p></section></div>
+        <section class="memory"><div class="memory-heading"><h2><span aria-hidden="true">✳</span> 联想记忆</h2><button id="edit">编辑联想 <span aria-hidden="true">↗</span></button></div><p class="memory-type" id="memory-type"></p><p class="memory-story" id="story"></p><div class="memory-hook"><span>记忆钩子</span><p id="hook"></p></div><span class="edited" id="edited" hidden>已使用你的联想</span></section>
+        <div class="bottom-grid"><section class="example"><h2><span>03</span> 放进一句话里 <small>自编例句</small></h2><p id="example" lang="en"></p><p id="translation"></p></section><section class="phrases"><h2><span>04</span> 实用搭配</h2><div id="phrases"></div></section></div>
+        <footer class="card-footer"><a id="source" target="_blank" rel="noopener noreferrer">Merriam-Webster · 词典依据 <span aria-hidden="true">↗</span></a><span id="saved-note">收录于我的单词本</span></footer>
+      </article>
+      <div class="page-foot"><span>你的单词，你的记忆方式。</span><span>当前可浏览已收录词卡，AI 新词生成尚未接入。</span></div>
+    </main>
+  </div>
+  <dialog id="editor" aria-labelledby="editor-title"><form id="edit-form"><div class="dialog-head"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="editor-title">让联想更像你</h2></div><button type="button" id="cancel-x" class="icon-button" aria-label="关闭编辑">×</button></div><p class="dialog-desc">为 <strong id="editing-word"></strong> 换一个更容易记住的故事。</p><label for="story-input">联想故事</label><textarea id="story-input" rows="5" maxlength="2000" required></textarea><label for="hook-input">一句记忆钩子</label><textarea id="hook-input" rows="2" maxlength="500" required></textarea><p class="local-note">自创联想不代表真实词源。修改仅保存在当前浏览器。</p><p id="save-error" class="error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel">取消</button><button type="submit" class="primary">保存联想</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
