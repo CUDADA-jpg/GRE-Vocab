@@ -4,15 +4,15 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#3348d4">
   <title>词间 · Wordloom — 我的单词与联想</title>
-  <meta name="description" content="中英释义、个人联想与例句。让每个单词，都有一个记得住的故事。">
+  <meta name="description" content="中英释义与个人联想。让每个单词，都有一个记得住的故事。">
   <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
-  <script src="words.js" defer></script><script src="app.js" defer></script>
+  <script src="words.js" defer></script><script src="review.js" defer></script><script src="checkpoint.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到学习卡</a>
   <aside class="sidebar" id="sidebar" aria-label="我的单词本">
     <a class="brand" href="#cozen"><span class="mark" aria-hidden="true">w.</span><span>词间<span class="brand-en">WORDLOOM</span></span></a>
-    <div class="library-title"><span>我的单词本</span><span class="count">11</span><button class="close-menu icon-button" aria-label="关闭单词本">×</button></div>
+    <div class="library-title"><span>我的单词本</span><span class="count" id="word-count">52</span><button class="close-menu icon-button" aria-label="关闭单词本">×</button></div>
     <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" placeholder="搜索单词或中文" autocomplete="off" aria-label="搜索单词或中文"><kbd>/</kbd></label>
     <nav id="word-list" aria-label="单词列表"></nav>
     <p class="empty" id="empty" hidden>还没有这个单词。<br>试试其他词或中文释义。</p>
@@ -20,20 +20,40 @@
   </aside>
   <button id="scrim" class="scrim" aria-label="关闭单词本" hidden></button>
   <div class="workspace">
-    <header class="topbar"><div><button id="menu" class="icon-button" aria-label="打开单词本" aria-expanded="false">☰</button><span class="breadcrumb">我的单词本 <span>/</span> <b>学习卡</b></span></div><span class="prototype">体验版 <span>·</span> 11 个单词</span></header>
+    <header class="topbar"><div><button id="menu" class="icon-button" aria-label="打开单词本" aria-expanded="false">☰</button><span class="breadcrumb">我的单词本 <span>/</span> <b>学习卡</b></span></div><span class="prototype">体验版 <span>·</span> <span id="total-words">52</span> 个单词</span></header>
     <main id="main" tabindex="-1">
-      <div class="page-heading"><div class="eyebrow">A WORD, A CONNECTION</div><div class="pager"><button id="prev" aria-label="上一个单词">←</button><span id="position">01 / 11</span><button id="next" aria-label="下一个单词">→</button></div></div>
+      <div class="page-heading"><div class="mode-switch" role="group" aria-label="学习方式"><button id="study-mode" aria-pressed="true">完整学习卡</button><button id="review-mode" aria-pressed="false">间隔复习 <span id="due-count">52</span></button></div><button id="open-checkpoint" class="action-secondary">Checkpoint</button><div class="pager" id="pager"><button id="prev" aria-label="上一个单词">←</button><span id="position">01 / 52</span><button id="next" aria-label="下一个单词">→</button></div></div>
+      <div class="review-status" id="review-status" hidden><span id="review-progress" role="status"></span><button id="schedule-info-button" aria-expanded="false" aria-controls="schedule-info">复习时间怎么安排？</button></div>
+      <p class="schedule-info" id="schedule-info" hidden>独立想起后，间隔依次为 1、3、7、14、30、60 天；需要提示则 10 分钟后再见，忘了则 1 分钟后再见。提示后会退回一个间隔档位，忘记后重新从短间隔开始。这是可调整的起步规则，并非精确的遗忘预测。记录仅保存在当前浏览器。</p>
+      <p id="review-error" class="review-error" role="alert" hidden></p>
+      <section id="review-done" class="review-done" hidden aria-labelledby="done-title"><span class="done-symbol" aria-hidden="true">✓</span><h2 id="done-title">这一轮，先到这里。</h2><p id="done-description"></p><p id="next-due"></p><div class="done-actions"><button id="back-to-study" class="action-primary">回到学习卡</button><button id="check-due" class="action-secondary">查看到期单词</button></div></section>
       <article id="card">
         <div class="word-heading"><div><div class="word-meta"><span id="number">WORD 001</span><span class="tiny-rule"></span><span id="pos"></span></div><h1 id="word"></h1><div class="pronunciation"><span id="ipa"></span><span class="word-form" id="form"></span></div></div><span class="word-monogram" id="monogram" aria-hidden="true"></span></div>
+        <section id="review-front" class="review-front" hidden><p class="recall-prompt">先在心里想一想：这个词是什么意思？</p><p class="recall-note">不用输入答案。想好后，再展开核对。</p><div id="hint-panel" class="hint-panel" hidden><span class="hint-label">一点线索</span><p id="hint-text"></p><img id="hint-image" alt="" hidden><p class="hint-note">想一想：画面里的动作，对应哪个意思？</p></div><div class="recall-actions"><button id="show-answer" class="action-primary">展开完整学习卡 <span aria-hidden="true">↓</span></button><button id="show-hint" class="action-secondary">给我一点提示</button></div></section>
+        <div id="card-answer">
         <div class="definition-grid"><section><h2><span>01</span> 中文释义</h2><p id="zh"></p><p class="usage" id="usage" hidden></p></section><section><h2><span>02</span> ENGLISH MEANING</h2><p id="en" lang="en"></p></section></div>
-        <section class="memory"><div class="memory-heading"><h2><span aria-hidden="true">✳</span> 联想记忆</h2><button id="edit">编辑联想 <span aria-hidden="true">↗</span></button></div><p class="memory-type" id="memory-type"></p><p class="memory-story" id="story"></p><div class="memory-hook"><span>记忆钩子</span><p id="hook"></p></div><span class="edited" id="edited" hidden>已使用你的联想</span></section>
-        <div class="bottom-grid"><section class="example"><h2><span>03</span> 放进一句话里 <small>自编例句</small></h2><p id="example" lang="en"></p><p id="translation"></p></section><section class="phrases"><h2><span>04</span> 实用搭配</h2><div id="phrases"></div></section></div>
+        <section class="memory"><div class="memory-heading"><h2><span aria-hidden="true">✳</span> 联想记忆</h2><button id="edit">编辑联想 <span aria-hidden="true">↗</span></button></div><p class="memory-type" id="memory-type"></p><div class="memory-visual-layout"><figure id="memory-figure" class="memory-figure" hidden><img id="memory-image" alt="" loading="lazy"><figcaption>联想示意 · 自创画面</figcaption></figure><p class="memory-story" id="story"></p></div><div class="memory-hook"><span>记忆钩子</span><p id="hook"></p></div><span class="edited" id="edited" hidden>已使用你的联想</span></section>
         <footer class="card-footer"><a id="source" target="_blank" rel="noopener noreferrer">Merriam-Webster · 词典依据 <span aria-hidden="true">↗</span></a><span id="saved-note">收录于我的单词本</span></footer>
+        <section class="familiarity" aria-labelledby="familiarity-title"><div class="familiarity-heading"><h2 id="familiarity-title">这个词，你有多熟悉？</h2><span>自我评价</span></div><div class="familiarity-buttons" role="group" aria-label="熟悉度，1 非常不熟悉，5 非常熟悉"><button data-familiarity="1" aria-label="1，非常不熟悉" aria-pressed="false"><strong>1</strong></button><button data-familiarity="2" aria-label="2，不熟悉" aria-pressed="false"><strong>2</strong></button><button data-familiarity="3" aria-label="3，一般" aria-pressed="false"><strong>3</strong></button><button data-familiarity="4" aria-label="4，熟悉" aria-pressed="false"><strong>4</strong></button><button data-familiarity="5" aria-label="5，非常熟悉" aria-pressed="false"><strong>5</strong></button></div><div class="familiarity-endpoints" aria-hidden="true"><span>非常不熟悉</span><span>非常熟悉</span></div><p id="familiarity-status" role="status" hidden></p></section>
+        </div>
+        <section id="review-rating" class="review-rating" hidden aria-labelledby="rating-title"><h2 id="rating-title">核对后，这次回忆怎么样？</h2><p id="rating-note">按展开前的真实感觉选择。</p><div class="rating-buttons"><button id="rate-recalled" data-rating="recalled"><span>想起来了</span><small id="interval-recalled">1 天后</small></button><button id="rate-hint" data-rating="hint"><span>需要提示</span><small id="interval-hint">10 分钟后</small></button><button id="rate-forgot" data-rating="forgot"><span>忘了</span><small id="interval-forgot">1 分钟后</small></button></div></section>
       </article>
       <div class="page-foot"><span>你的单词，你的记忆方式。</span><span>当前可浏览已收录词卡，AI 新词生成尚未接入。</span></div>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="edit-form"><div class="dialog-head"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="editor-title">让联想更像你</h2></div><button type="button" id="cancel-x" class="icon-button" aria-label="关闭编辑">×</button></div><p class="dialog-desc">为 <strong id="editing-word"></strong> 换一个更容易记住的故事。</p><label for="story-input">联想故事</label><textarea id="story-input" rows="5" maxlength="2000" required></textarea><label for="hook-input">一句记忆钩子</label><textarea id="hook-input" rows="2" maxlength="500" required></textarea><p class="local-note">自创联想不代表真实词源。修改仅保存在当前浏览器。</p><p id="save-error" class="error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel">取消</button><button type="submit" class="primary">保存联想</button></div></form></dialog>
+  <dialog id="checkpoint" class="checkpoint" aria-labelledby="checkpoint-title">
+    <button id="close-checkpoint" class="cp-close" aria-label="关闭 Checkpoint" autofocus>×</button>
+    <h2 id="checkpoint-title">Checkpoint!</h2>
+    <p class="cp-subtitle">停一下，看看你的积累。</p>
+    <div class="cp-ring" id="cp-ring" aria-hidden="true"><div class="cp-center"><span>自评熟悉词</span><strong id="cp-percent">—</strong><span id="cp-fraction">尚未评分</span></div></div>
+    <p id="cp-accessible" class="cp-summary"></p>
+    <div id="cp-legend" class="cp-legend"></div>
+    <div class="cp-stats"><div><strong id="cp-rated">—</strong><span>已评分</span></div><div><strong id="cp-due">—</strong><span>待复习（含新词）</span></div><div><strong id="cp-reviewed">—</strong><span>今日回忆次数</span></div></div>
+    <p id="cp-advice" class="cp-advice"></p>
+    <details><summary>这个比例怎么算？</summary><p>评分为 4 或 5 的词数 ÷ 单词本总词数。灰色表示未评分；圆环展示每词最新的 1–5 级评分。这是你的自评记录，不是经过测试的掌握率。每累计首次评分 10 个词，或一轮复习完成 10 个词，显示一次 Checkpoint。</p></details>
+    <div class="cp-actions"><button id="cp-continue">继续学习</button><button id="cp-review">去复习</button></div>
+  </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
