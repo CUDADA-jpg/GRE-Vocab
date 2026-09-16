@@ -970,5 +970,19 @@ window.WORDS = [
     "cue": "一个画面是高得难爬的台阶；另一个是水中慢慢泡出颜色的茶包……",
     "source": "https://www.merriam-webster.com/dictionary/steep",
     "usage": ""
+  },
+  {
+    "word": "facetious",
+    "ipa": "/fəˈsiːʃəs/",
+    "pos": "形容词",
+    "form": "副词 facetiously；名词 facetiousness",
+    "zh": "开玩笑的、诙谐的；（尤指不合时宜地）不严肃的、轻佻的。",
+    "en": "Joking or trying to be funny, especially in an inappropriate or unserious way.",
+    "usage": "",
+    "memoryType": "自创拼写联想，非词源",
+    "story": "看到 FACEtious 开头的 FACE（脸），想象大家正在严肃开会，一个人却做着鬼脸，拿严肃问题开玩笑，全场尴尬地看着他。重点是“不该开玩笑时还在逗趣”，而不只是有幽默感。FACE 只是拼写提示；facetious 的开头不读 face /feɪs/，整词读 /fəˈsiːʃəs/。",
+    "hook": "FACEtious → 严肃会议上做鬼脸、乱开玩笑 → 不合时宜地诙谐、不严肃的。",
+    "source": "https://www.merriam-webster.com/dictionary/facetious",
+    "cue": "FACE（脸）：大家严肃开会，他却做鬼脸、拿正事开玩笑……"
   }
 ];

@@ -1,6 +1,6 @@
 # 词间 · Wordloom
 
-Interactive static vocabulary-app prototype using the 57 collected learning cards. Browse, search, navigate, and edit mnemonic stories. Full cards are the default. An optional spaced-recall mode conceals card details until reveal, offers text/image hints, and schedules words from explicit recalled / hint / forgot ratings. No quiz, typed answer, or automatic mastery inference. Five mnemonic illustrations are included (purloin, apoplectic, wend, enjoin, diaspora).
+Interactive static vocabulary-app prototype using the 58 collected learning cards. Browse, search, navigate, and edit mnemonic stories. Full cards are the default. An optional spaced-recall mode conceals card details until reveal, offers text/image hints, and schedules words from explicit recalled / hint / forgot ratings. No quiz, typed answer, or automatic mastery inference. Five mnemonic illustrations are included (purloin, apoplectic, wend, enjoin, diaspora).
 
 Edited stories and review events remain in the current browser's localStorage. Review data uses `wordloom-reviews-v1`, independently of existing `wordloom-memories-v1` mnemonic edits. A failed review save keeps the current card. Invalid review data is not overwritten. New-word AI generation and cross-device synchronization are not connected.
 
