@@ -54,3 +54,11 @@ Composition: square, generous whitespace, simple visual hierarchy, large clear f
 Color palette: cobalt blue, navy outlines, muted lime accents, white background.
 Constraints: no text except optional exact word PASSPORT on the booklets; no flags; no detailed geography; no seed or spore metaphor; no watermark. Generate exactly one image.
 ```
+
+
+## 2026-09-17: compact illustrations
+
+Generated with the built-in image tool; replaces text-heavy poster assets.
+
+- `dist/images/galvanize.png`: Minimal square navy/blue/yellow line illustration, white background, megaphone emits a symbolic lightning bolt and volunteers spring into action cleaning and planting. No text, captions, panels, or definitions.
+- `dist/images/caricatured.png`: Minimal square line illustration, a man beside his portrait whose rounded nose is exaggerated beyond the frame. White background, navy outlines, blue and yellow accents. No text or captions; exaggerated depiction, not lying.
